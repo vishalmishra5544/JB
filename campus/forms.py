@@ -19,8 +19,7 @@ class Student_SignUpForm(UserCreationForm):
 
 
 class UsdForm(forms.Form):
-    phone_number = forms.CharField(max_length=10,min_length=10,initial="enter ur phone num",required=True)
-    phone_number = forms.CharField(min_length=10, help_text='*required',max_length=10)
+    phone_number = forms.CharField(max_length=10,min_length=10,required=True)
     email = forms.EmailField(max_length=254,required=True)
     branch = forms.CharField(required=True, max_length=100)
     skills = forms.CharField(required=True,max_length=10000)

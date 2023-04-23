@@ -77,6 +77,7 @@ def usd(request):
         print(cnter+1)
         form=UsdForm(request.POST)
         print(cnter + 1)
+        print(form)
         if form.is_valid():
             print(cnter + 1)
             stu = request.user.username
@@ -98,7 +99,8 @@ def usd(request):
             j.save()
             print(cnter + 1)
             return redirect('campus/student/student_login/dispstu')
-
+        else:
+            return redirect('/')
     else:
         stu = request.user.username
         post = stu_details.objects.filter(username=stu)
@@ -214,6 +216,7 @@ def ccd(request):
  if  request.user.is_authenticated and request.user.groups.filter(name='company').exists():
     if request.method == "POST":
             form=ccdForm(request.POST)
+            print(form)
             if form.is_valid():
                 stu = request.user.username
                 post = comp_details.objects.filter(username=stu)
@@ -410,6 +413,7 @@ def apply(request,opt):
 def selectstu(request):
     y=[]
     s=""
+    statusForY = []
     if request.user.is_authenticated and request.user.groups.filter(name='company').exists():
         if request.method == "POST":
              jobid=request.POST.get("jobid")
@@ -441,11 +445,22 @@ def selectstu(request):
                  return render(request, 'campus/sstu.html', {'y': y, 's': s,'jobid':jobid})
              else:
                  print(y)
-                 return render(request, 'campus/sstu.html', {'y': y, 's': s,'jobid':jobid})
+                 for i in y:
+                     currentStudent=i[0]
+                     iStatus=applied_jobs.objects.filter(job_id=jobid, student_id=currentStudent.username)
+                     if (len(iStatus) > 0):
+                         statusForY.append(iStatus[0].status)
+                # statusForY.insert(0,' ')
+                 print(statusForY)
+                 reqdArr=[]
+                 for i in range(0,len(y)):
+                     reqdArr.append((y[i],statusForY[i]))
+                 print(reqdArr)
+                 return render(request, 'campus/sstu.html', {'y': y, 's': s,'jobid':jobid,'statusForY':statusForY,'reqdArr':reqdArr})
 
 
         else:
-          return render(request, 'campus/sstu.html', {'y': y})
+          return render(request, 'campus/sstu.html', {'y': y,'statusForY':statusForY})
 
     else:
         return HttpResponse("<h1>u r not logged in</h1>")
@@ -462,21 +477,18 @@ def stumail(request,jobid,opt):
             from_email = comp_details.objects.filter(username=request.user.username)[0].email
 
             print(recv,p)
-            subject="call letter from "+p
-            body="Congratlations!!!"+str(name)+" you are selected for the interview ,the date for the interview will be anounced by your Placement Officer"
+            subject="Job Application-"+str(jobid)+" Update|| "+p
+            body="Congratulations!!! "+str(name)+" Your application is selected for the further rounds in interview process,the date for the interview will be announced by your Placement Officer"
 
             if subject and body and from_email:
                 try:
                     send_mail(subject, body, from_email, [recv])
                 except BadHeaderError:
                     return HttpResponse('Invalid header found.')
-                return HttpResponseRedirect('company/company_login/selectstu/')
+                return redirect('/')
             else:
-                # In reality we'd use a form class
-                # to get proper validation errors.
                 return HttpResponse('Make sure all fields are entered and valid.')
-            #email = EmailMessage(subject, body, to=[recv])
-            #email.send()
+
             return HttpResponse("<h1>mail sent </h1>")
 
 
