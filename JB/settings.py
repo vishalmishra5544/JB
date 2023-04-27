@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'campus.apps.CampusConfig',
     'resumeparser.apps.ResumeparserConfig',
+    'customadmin.apps.CustomadminConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

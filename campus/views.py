@@ -18,7 +18,7 @@ from django.utils.decorators import method_decorator
 
 # Create your views here
 def  student_login(request):
-    if request.user.is_authenticated and request.user.groups.filter(name='student').exists():
+    if request.user.is_authenticated and request.user.groups.filter(name='student').exists() or request.user.is_superuser:
         return render(request,'campus/stulog.html')
     if request.method == 'POST':
         form = AuthenticationForm(data=request.POST)
@@ -41,7 +41,8 @@ def  student_login(request):
 def  home(request):
     studentUsers=stu_details.objects.values_list('username', flat=True)
     print(studentUsers)
-    return render(request,'campus/home.html',{"studentUsers":studentUsers})
+    companyUsers=comp_details.objects.values_list('username',flat=True)
+    return render(request,'campus/home.html',{"studentUsers":studentUsers,"companyUsers":companyUsers})
 
 def pagelogout(request):
         logout(request)
@@ -70,7 +71,7 @@ def student_register(request):
 #@login_required
 #@user_passes_test(lambda u: u.groups.filter(name='Student').count() == 1)
 def usd(request):
- if  request.user.is_authenticated and request.user.groups.filter(name='student').exists():
+ if  request.user.is_authenticated and request.user.groups.filter(name='student').exists() or request.user.is_superuser:
     if request.method == "POST":
         count=0
         cnter=int(count)
@@ -118,7 +119,7 @@ def usd(request):
 
 
 def dispstu(request):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated or request.user.is_superuser:
         stu = request.user.username
         reqdPost = stu_details.objects.filter(username=stu)
         post=reqdPost[0]
@@ -133,7 +134,7 @@ def UploadResume(request):
     return redirect('http://127.0.0.1:8000/resume')
 
 def trackapplicationstatus(request):
-    if request.user.is_authenticated and request.user.groups.filter(name='student').exists():
+    if request.user.is_authenticated and request.user.groups.filter(name='student').exists() or request.user.is_superuser:
       s=""
       y=[]
       if request.method == "POST":
@@ -191,7 +192,7 @@ def company_register(request):
 
 
 def  company_login(request):
-    if request.user.is_authenticated and request.user.groups.filter(name='company').exists():
+    if request.user.is_authenticated and request.user.groups.filter(name='company').exists() or request.user.is_superuser:
         return render(request,'campus/comlog.html')
     if request.method == 'POST':
         form = AuthenticationForm(data=request.POST)
@@ -213,7 +214,7 @@ def  company_login(request):
 
 
 def ccd(request):
- if  request.user.is_authenticated and request.user.groups.filter(name='company').exists():
+ if  request.user.is_authenticated and request.user.groups.filter(name='company').exists() or request.user.is_superuser:
     if request.method == "POST":
             form=ccdForm(request.POST)
             print(form)
@@ -245,7 +246,7 @@ def ccd(request):
 
 
 def jobpos(request):
-    if request.user.is_authenticated and request.user.groups.filter(name='company').exists():
+    if request.user.is_authenticated and request.user.groups.filter(name='company').exists() or request.user.is_superuser:
         if request.method == "POST":
             form = jobposForm(request.POST)
             if form.is_valid():
@@ -271,7 +272,7 @@ def jobpos(request):
         return HttpResponse("<h1>u r not logged in</h1>")
 
 def jd(request):
-    if request.user.is_authenticated and request.user.groups.filter(name='company').exists():
+    if request.user.is_authenticated and request.user.groups.filter(name='company').exists() or request.user.is_superuser:
         if request.method == "POST":
                     s=""
                     print("hiiiiiii")
@@ -311,7 +312,7 @@ def jd(request):
 
 
 def deletevacan(request):
-    if request.user.is_authenticated and request.user.groups.filter(name='company').exists():
+    if request.user.is_authenticated and request.user.groups.filter(name='company').exists() or request.user.is_superuser:
         if request.method == "POST":
                     s=""
                     book=job_pos.objects.filter(job_id=request.POST.get("jobid"))
@@ -332,7 +333,7 @@ def deletevacan(request):
         return HttpResponse("<h1>u r not logged in</h1>")
 
 def viewpos(request):
-    if request.user.is_authenticated and request.user.groups.filter(name='company').exists():
+    if request.user.is_authenticated and request.user.groups.filter(name='company').exists() or request.user.is_superuser:
         x = request.user.username
         y = job_pos.objects.filter(username=x)
         s=""
@@ -346,7 +347,7 @@ def viewpos(request):
 
 
 def applyjob(request):
-    if request.user.is_authenticated and request.user.groups.filter(name='student').exists():
+    if request.user.is_authenticated and request.user.groups.filter(name='student').exists() or request.user.is_superuser:
       s=""
       y=[]
       if request.method == "POST":
@@ -385,7 +386,7 @@ def applyjob(request):
 
 
 def apply(request,opt):
-    if request.user.is_authenticated and request.user.groups.filter(name='student').exists():
+    if request.user.is_authenticated and request.user.groups.filter(name='student').exists() or request.user.is_superuser:
         if request.method=="POST":
             x=request.user.username
             print(x)
@@ -414,7 +415,7 @@ def selectstu(request):
     y=[]
     s=""
     statusForY = []
-    if request.user.is_authenticated and request.user.groups.filter(name='company').exists():
+    if request.user.is_authenticated and request.user.groups.filter(name='company').exists() or request.user.is_superuser:
         if request.method == "POST":
              jobid=request.POST.get("jobid")
              u=request.user.username
@@ -467,7 +468,7 @@ def selectstu(request):
 
 
 def stumail(request,jobid,opt):
-    if request.user.is_authenticated and request.user.groups.filter(name='company').exists():
+    if request.user.is_authenticated and request.user.groups.filter(name='company').exists() or request.user.is_superuser:
         if request.method=="POST":
             recv=stu_details.objects.filter(username=opt)[0].email
             name=stu_details.objects.filter(username=opt)[0].name
@@ -504,7 +505,7 @@ def stumail(request,jobid,opt):
 
 
 def FilterCandidates(request):
-    if request.user.is_authenticated and request.user.groups.filter(name='company').exists():
+    if request.user.is_authenticated and request.user.groups.filter(name='company').exists() or request.user.is_superuser:
         x = request.user.username
         y = job_pos.objects.filter(username=x)
         candidateList= Resume.Objects.filter(skills='')

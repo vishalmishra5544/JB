@@ -38,9 +38,13 @@
                     <ul class="site-menu js-clone-nav d-none d-lg-block">
                         {% if user.is_authenticated and user.username in studentUsers %}
                                         <li><a href="http://127.0.0.1:8000/student/student_login/">Candidate</a></li>
-                        {% elif user.is_authenticated and user.username not in studentUsers %}
+                        {% elif user.is_authenticated and user.username in companyUsers %}
                                      <li><a href=" http://127.0.0.1:8000/company/company_login/">Company</a></li>
-
+                        {% elif user.is_authenticated and user.is_superuser %}
+                        <li><a href="http://127.0.0.1:8000/student/student_login/">Candidate</a></li>
+                        <li>
+                          <a href=" http://127.0.0.1:8000/company/company_login/">Company</a>
+                        </li>
                         {% else %}
                       <li><a href="http://127.0.0.1:8000/student/student_login/">Candidate Login</a></li>
                       <li>

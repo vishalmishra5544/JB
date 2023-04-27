@@ -5,7 +5,8 @@ from django.conf.urls import url
 from django.contrib.auth import views as auth_views
 from django.conf.urls.static import static
 urlpatterns = [
-    path('admin/', admin.site.urls,name='admin'),
+    path('admin_login/', admin.site.urls,name='admin'),
+    path('admin/', include('customadmin.urls')),
     path('', include('campus.urls')),
     path('resume/', include('resumeparser.urls')),
     path('student/student_register/', include('campus.urls')),

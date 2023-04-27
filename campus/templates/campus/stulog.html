@@ -17,6 +17,12 @@
 
   <div class="jumbotron">
       <table class="pos2">
+
+          {% if user.is_superuser %}
+          <tr>
+              <td ><a href=" http://127.0.0.1:8000/admin/student " class="btn btn-lg btn-primary mx-5 d-inline-flex"><b style="font-size: 2rem">View All Registered Students</b></a></td>
+          </tr>
+          {% else %}
           <tr>
               <td ><a href=" http://127.0.0.1:8000/student/student_login/UploadResume " class="btn btn-lg btn-primary mx-5 d-inline-flex"><b style="font-size: 2rem">Upload Resume</b></a></td>
           </tr>
@@ -30,6 +36,7 @@
           <tr>
               <td ><a href=" http://127.0.0.1:8000/student/student_login/trackapplicationstatus " class="btn btn-lg btn-primary mx-5 d-inline-flex"><b style="font-size: 2rem">Track Applications Status</b></a></td>
            </tr>
+          {% endif %}
       </table>
 
   </div>

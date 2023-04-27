@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>view students</title>
+    <style>
+    body{
+     background-color:whitesmoke;
+     color:black;
+    }
+    table, th, td {
+      border:2px solid green;
+      border-collapse: collapse;
+    }
+    th{
+     color:red;
+    }
+    .outer{
+     color:green;
+    }
+    .inner{
+     position:relative;
+     left:500px;
+    }
+</style>
+</head>
+<body>
+
+<div class="outer">
+    <div class="inner">
+        <h1 style="color:red;">All Registered Students Details</h1>
+    </div>
+     <table>
+      <tr>
+        <th>Student Name</th>
+        <th>Phone Number</th>
+        <th>Email</th>
+        <th>Branch</th>
+        <th>Skills</th>
+        <th>Experience</th>
+      </tr>
+      {% for student in students %}
+       <tr>
+        <td>{{student.name}}</td>
+        <td>{{student.phone_number}}</td>
+        <td>{{student.email}}</td>
+        <td>{{student.branch}}</td>
+        <td>{{student.skills}}</td>
+        <td>{{student.experience}}</td>
+      </tr>
+    {% endfor %}
+    </table>
+</div>
+
+
+</body>
+</html>

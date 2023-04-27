@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>view companies</title>
+<style>
+    body{
+     background-color:whitesmoke;
+     color:black;
+    }
+    table, th, td {
+      border:2px solid green;
+      border-collapse: collapse;
+    }
+    th{
+     color:red;
+    }
+    .outer{
+     color:green;
+    }
+    .inner{
+     position:relative;
+     left:500px;
+    }
+</style>
+</head>
+<body>
+
+<div class="outer">
+    <div class="inner">
+        <h1 style="color:red;">All Registered Companies Details</h1>
+    </div>
+     <table>
+      <tr>
+        <th>Company Name</th>
+        <th>Est Year</th>
+        <th>Hr Name</th>
+        <th>Hr Phone No</th>
+        <th>Headquarters</th>
+        <th>About</th>
+        <th>Type</th>
+        <th>Email</th>
+      </tr>
+      {% for company in companies %}
+       <tr>
+        <td>{{company.company_name}}</td>
+        <td>{{company.est_year}}</td>
+        <td>{{company.hr_name}}</td>
+        <td>{{company.hr_phn}}</td>
+        <td>{{company.headquaters}}</td>
+        <td>{{company.about}}</td>
+        <td>{{company.type}}</td>
+        <td>{{company.email}}</td>
+      </tr>
+    {% endfor %}
+    </table>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700|Work+Sans:300,400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mediaelement@4.2.7/build/mediaelementplayer.min.css" >
+
+
+    <title>Admin Login</title>
+    <style>
+        body{
+         background-color:black;
+        }
+        .outer{
+         border:5px solid #007500;
+         position:relative;
+         top:250px;
+         width:30%;
+         height:50%;
+         margin:auto;
+         color:green;
+         background-color:lightyellow;
+         font-weight:bold;
+        }
+        #submit{
+         position:relative;
+         width:30%;
+         height:50%;
+         left:75px;
+         color:whitesmoke;
+         background-color:green;
+         margin:auto;
+        }
+        .alert{
+         position:relative;
+         width:50%;
+         height:50%;
+         left:45px;
+         color:red;
+         background-color:whitesmoke;
+
+         border:2px solid red;
+        }
+    </style>
+</head>
+<body>
+<div class="outer">
+    <h1>Admin Login</h1>
+    <hr/>
+     {% if error %}
+     <div class="alert">
+         {{errordescription}}
+     </div>
+    <br>
+     {% endif %}
+    <div class="inner">
+        <form method="POST">
+            {% csrf_token %}
+            <div>
+                <div>
+                    <label for="username">Username</label>
+                    <input type="text" name="username" id="username">
+                </div>
+                <br>
+                <div>
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password">
+                </div>
+                <br>
+                <div>
+                    <button type="submit" name="Submit" value="Submit" id="submit">Submit</button>
+                </div>
+                <br>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

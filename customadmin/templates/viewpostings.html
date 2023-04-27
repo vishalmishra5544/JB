@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>view postings</title>
+    <style>
+    body{
+     background-color:whitesmoke;
+     color:black;
+    }
+    table, th, td {
+      border:2px solid green;
+      border-collapse: collapse;
+    }
+    th{
+     color:red;
+    }
+    .outer{
+     color:green;
+    }
+    .inner{
+     position:relative;
+     left:500px;
+    }
+</style>
+</head>
+<body>
+
+<div class="outer">
+    <div class="inner">
+        <h1 style="color:red;">All Job Postings Details</h1>
+    </div>
+     <table>
+      <tr>
+        <th>Job Id</th>
+        <th>Company Name</th>
+        <th>Designation</th>
+        <th>Salary</th>
+        <th>Bond Years</th>
+        <th>Mechanical allowed</th>
+          <th>CSE allowed</th>
+        <th>Civil allowed</th>
+        <th>Electrical allowed</th>
+        <th>ECE allowed</th>
+        <th>Chemical allowed</th>
+      </tr>
+      {% for posting in postings %}
+       <tr>
+        <td>{{posting.job_id}}</td>
+        <td>{{posting.company_name}}</td>
+        <td>{{posting.designation}}</td>
+        <td>{{posting.salary}}</td>
+        <td>{{posting.bond_years}}</td>
+        <td>{{posting.mech}}</td>
+            <td>{{posting.cse}}</td>
+        <td>{{posting.civil}}</td>
+        <td>{{posting.eee}}</td>
+        <td>{{posting.ece}}</td>
+        <td>{{posting.chemical}}</td>
+      </tr>
+    {% endfor %}
+    </table>
+</div>
+
+</body>
+</html>
